@@ -1,0 +1,8 @@
+/*
+  Cache-Control: max-age=86400
+  Expires: $expires(1d)
+*/
+
+/*.webp
+  Cache-Control: max-age=2592000
+  Expires: $expires(30d)
