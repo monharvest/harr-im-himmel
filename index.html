@@ -34,9 +34,14 @@
   };
 </script>
 <script>
-jQuery(function(){
-  DFLIP.defaults.backgroundColor = "gray";
-});
-
+(function waitForFlipDeps(){
+  if (window.jQuery && window.DFLIP) {
+    jQuery(function(){
+      DFLIP.defaults.backgroundColor = "gray";
+    });
+  } else {
+    setTimeout(waitForFlipDeps, 30);
+  }
+})();
 </script>
 </body></html>
