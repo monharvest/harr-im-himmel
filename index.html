@@ -17,10 +17,6 @@
 
 <footer class="text-center text-gray-300 text-sm font-medium mt-8">© 2025 Martin Zender. Alle Rechte vorbehalten.</footer></div>
 
-<!-- Add DearFlip scripts here (adjust paths if dflip folder is elsewhere) -->
-<script src="dflip/js/libs/jquery.min.js" type="text/javascript" defer></script>
-<script src="dflip/js/dflip.min.js" type="text/javascript" defer></script>
-
 <!-- Customize flipbook options (for lightbox mode) -->
 <script type="text/javascript">
   var option_df_flipbook = {
@@ -34,13 +30,43 @@
   };
 </script>
 <script>
-(function waitForFlipDeps(){
-  if (window.jQuery && window.DFLIP) {
-    jQuery(function(){
-      DFLIP.defaults.backgroundColor = "gray";
+(function(){
+  var flipDepsPromise;
+
+  function loadScript(src){
+    return new Promise(function(resolve, reject){
+      var s=document.createElement('script');
+      s.src=src;
+      s.async=true;
+      s.onload=resolve;
+      s.onerror=function(){reject(new Error('Failed to load '+src));};
+      document.head.appendChild(s);
     });
-  } else {
-    setTimeout(waitForFlipDeps, 30);
+  }
+
+  function ensureFlipDeps(){
+    if (flipDepsPromise) return flipDepsPromise;
+    flipDepsPromise = loadScript('dflip/js/libs/jquery.min.js')
+      .then(function(){ return loadScript('dflip/js/dflip.min.js'); })
+      .then(function(){
+        if (window.jQuery && window.DFLIP) {
+          DFLIP.defaults.backgroundColor = "gray";
+        }
+      });
+    return flipDepsPromise;
+  }
+
+  var flipBtn = document.getElementById('df_flipbook');
+  if (flipBtn) {
+    var handler = function(event){
+      flipBtn.removeEventListener('click', handler);
+      event.preventDefault();
+      ensureFlipDeps().then(function(){
+        // Re-trigger click once DearFlip is ready so its own handler can open the lightbox
+        setTimeout(function(){ flipBtn.click(); }, 0);
+      });
+    };
+    flipBtn.addEventListener('click', handler);
   }
 })();
 </script>

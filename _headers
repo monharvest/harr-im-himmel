@@ -3,6 +3,14 @@
   Expires: $expires(1d)
 */
 
-/*.webp
-  Cache-Control: max-age=2592000
+/dflip/js/*
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: $expires(365d)
+
+/dflip/css/*
+  Cache-Control: public, max-age=31536000, immutable
+  Expires: $expires(365d)
+
+/bookcover.webp
+  Cache-Control: public, max-age=2592000, immutable
   Expires: $expires(30d)
