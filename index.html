@@ -17,6 +17,9 @@
 
 <footer class="text-center text-gray-300 text-sm font-medium mt-8">© 2025 Martin Zender. Alle Rechte vorbehalten.</footer></div>
 
+<!-- Hidden button for Was ist ein Gläubiger PDF -->
+<div class="_df_button" id="df_glaeubiger" source="Was ist ein Gläubiger.pdf" style="display:none;"></div>
+
 <!-- Customize flipbook options (for lightbox mode) -->
 <script type="text/javascript">
   var option_df_flipbook = {
@@ -27,6 +30,16 @@
     duration: 1000,  // Flip animation speed in ms
     enableDownload: true,  // Allow PDF download
     autoEnableOutline: false  // Auto-generate table of contents if in PDF
+  };
+  
+  var option_df_glaeubiger = {
+    source: "Was ist ein Gläubiger.pdf",
+    webgl: true,
+    forceFit: true,
+    hard: "cover",
+    duration: 1000,
+    enableDownload: true,
+    autoEnableOutline: false
   };
 </script>
 <script>
@@ -67,6 +80,16 @@
       });
     };
     flipBtn.addEventListener('click', handler);
+  }
+  
+  // Check URL for was-ist-ein-glaeubiger query parameter
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('was-ist-ein-glaeubiger')) {
+    ensureFlipDeps().then(function(){
+      setTimeout(function(){ 
+        document.getElementById('df_glaeubiger').click(); 
+      }, 500);
+    });
   }
 })();
 </script>
