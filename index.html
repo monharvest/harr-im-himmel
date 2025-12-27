@@ -82,8 +82,8 @@
     flipBtn.addEventListener('click', handler);
   }
   
-  // Check URL for was-ist-ein-glaeubiger query parameter
-  if (window.location.search.indexOf('was-ist-ein-glaeubiger') > -1) {
+  // Check URL path for was-ist-ein-glaeubiger
+  if (window.location.pathname.includes('was-ist-ein-glaeubiger')) {
     ensureFlipDeps().then(function(){
       setTimeout(function(){ 
         document.getElementById('df_glaeubiger').click(); 
