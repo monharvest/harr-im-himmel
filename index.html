@@ -84,7 +84,7 @@
   
   // Check URL for was-ist-ein-glaeubiger query parameter
   var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has('was-ist-ein-glaeubiger')) {
+  if (urlParams.has('was-ist-ein-glaeubiger?') || urlParams.has('was-ist-ein-glaeubiger%3F')) {
     ensureFlipDeps().then(function(){
       setTimeout(function(){ 
         document.getElementById('df_glaeubiger').click(); 
