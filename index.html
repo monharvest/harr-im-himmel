@@ -15,10 +15,13 @@
   <div class="_df_button inline-block px-8 py-4 bg-gradient-to-r from-red-600 to-red-800 text-white font-bold text-xl rounded-full shadow-lg hover:from-red-700 hover:to-red-900 transition duration-300 ease-in-out transform hover:scale-105 border-2 border-red-500" id="df_flipbook" source="booknew.pdf">Hier geht's zum Buch!</div>
 </section>
 
-<footer class="text-center text-gray-300 text-sm font-medium mt-8">© 2025 Martin Zender. Alle Rechte vorbehalten.</footer></div>
+<p class="text-left text-gray-300 text-lg font-medium" style="margin-top:20px;margin-bottom:20px;">Mehr Bücher von Martin Zender</p><div class="text-center mt-4 mb-4"><img src="unvollkommen.webp" alt="Unvollkommen" id="unvollkommen_cover" class="inline-block rounded-lg shadow-lg border border-gray-600 transition duration-300 ease-in-out transform hover:scale-105" style="max-width:200px;height:auto;cursor:pointer;"></div><footer class="text-center text-gray-300 text-sm font-medium" style="margin-top:200px;">© 2026 Martin Zender. Alle Rechte vorbehalten.</footer></div>
 
 <!-- Hidden button for Was ist ein Gläubiger PDF -->
 <div class="_df_button" id="df_glaeubiger" source="Was ist ein Gläubiger.pdf" style="display:none;"></div>
+
+<!-- Hidden button for Unvollkommen PDF -->
+<div class="_df_button" id="df_unvollkommen" source="unvollkommen.pdf" style="display:none;"></div>
 
 <!-- Customize flipbook options (for lightbox mode) -->
 <script type="text/javascript">
@@ -34,6 +37,16 @@
   
   var option_df_glaeubiger = {
     source: "Was ist ein Gläubiger.pdf",
+    webgl: true,
+    forceFit: true,
+    hard: "cover",
+    duration: 1000,
+    enableDownload: true,
+    autoEnableOutline: false
+  };
+
+  var option_df_unvollkommen = {
+    source: "unvollkommen.pdf",
     webgl: true,
     forceFit: true,
     hard: "cover",
@@ -82,6 +95,15 @@
     flipBtn.addEventListener('click', handler);
   }
   
+  var unvollkommenCover = document.getElementById('unvollkommen_cover');
+  if (unvollkommenCover) {
+    unvollkommenCover.addEventListener('click', function(){
+      ensureFlipDeps().then(function(){
+        setTimeout(function(){ document.getElementById('df_unvollkommen').click(); }, 0);
+      });
+    });
+  }
+
   // Check URL path for was-ist-ein-glaeubiger
   if (window.location.pathname.includes('was-ist-ein-glaeubiger')) {
     ensureFlipDeps().then(function(){
